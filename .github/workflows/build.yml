@@ -14,8 +14,8 @@ jobs:
       image: xundaoxd/ml:latest
       options: -u 0:0
     steps:
-      - name: Checkout
-        run: |
+      - uses: actions/checkout@v3
+      - run: |
           git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git
       - name: Cache
         uses: actions/cache@v3
