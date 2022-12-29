@@ -15,13 +15,16 @@ jobs:
       options: -u 0:0
     steps:
       - uses: actions/checkout@v3
-      - run: |
-          git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git
       - name: Cache
         uses: actions/cache@v3
         with:
           key: ccache
-          path: .cache
+          path: |
+            .cache
+            llvm-project
+      - run: |
+          [ -e llvm-project ] || git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git
+          [ -e llvm-project ] && (cd llvm-project && git pull --rebase)
       - name: Build
         run: |
           ./build.sh
