@@ -2,6 +2,7 @@ name: llvm-builder
 on:
   push:
     tags:
+      - llvmorg-*
 
 env:
   LLVM_TAG: llvmorg-15.0.6
