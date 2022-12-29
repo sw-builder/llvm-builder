@@ -1,0 +1,32 @@
+name: llvm-builder
+on:
+  push:
+    tags:
+
+env:
+  LLVM_TAG: llvmorg-15.0.6
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: xundaoxd/ml:latest
+      options: -u 0:0
+    steps:
+      - name: Checkout
+        run: |
+          git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git
+      - name: Build
+        run: |
+          ./build.sh
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: llvm
+          path: llvm-root
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: llvm-root
+
