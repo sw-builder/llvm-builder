@@ -4,7 +4,7 @@ self_dir=$PWD
 build_type=Release
 
 build_dir=$self_dir/.build-$build_type
-cache_dir=$self_dir/.cache-$build_type
+cache_dir=$self_dir/.cache/$build_type
 install_dir=$self_dir/llvm-root
 
 (cd llvm-project \

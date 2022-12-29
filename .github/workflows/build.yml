@@ -16,6 +16,11 @@ jobs:
       - name: Checkout
         run: |
           git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          key: ccache
+          path: .cache
       - name: Build
         run: |
           ./build.sh
