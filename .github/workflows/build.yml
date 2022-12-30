@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: xundaoxd/ml:latest
-      options: -u 0:0
     steps:
       - uses: actions/checkout@v3
       - name: Cache
@@ -23,8 +22,7 @@ jobs:
             .cache
             llvm-project
       - run: |
-          [ -e llvm-project ] || git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git
-          [ -e llvm-project ] && (cd llvm-project && git pull --rebase)
+          if [ -e llvm-project ]; then (cd llvm-project && git pull --rebase); else git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git; fi
       - name: Build
         run: |
           ./build.sh
