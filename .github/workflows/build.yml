@@ -22,7 +22,7 @@ jobs:
             .cache
             llvm-project
       - run: |
-          if [ -e llvm-project ]; then (cd llvm-project && git pull --rebase); else git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git; fi
+          if [ -e llvm-project ]; then (cd llvm-project && git pull --rebase && git checkout ${LLVM_TAG} && git submodule update --init); else git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git; fi
       - name: Build
         run: |
           ./build.sh
