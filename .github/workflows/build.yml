@@ -24,7 +24,12 @@ jobs:
             .build
             llvm-project
       - run: |
-          if [ -e llvm-project ]; then (cd llvm-project && git pull --rebase && git checkout ${LLVM_TAG} && git submodule update --init); else git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git; fi
+          if [ -e llvm-project ]; then
+            (cd llvm-project && git pull --rebase && git checkout ${LLVM_TAG} && git submodule update --init)
+          else
+            git clone --depth 1 -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git
+            (cd llvm-project && git pull --rebase && git checkout ${LLVM_TAG} && git submodule update --init)
+          fi
       - name: Build
         run: |
           ./build.sh
