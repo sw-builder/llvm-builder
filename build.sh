@@ -19,7 +19,7 @@ install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
     -DLLVM_INSTALL_UTILS=ON \
     -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
     -DPython3_EXECUTABLE="$(which python3)" \
-&& cmake --build $build_dir -j 12 \
+    && cmake --build $build_dir -j $(nproc) \
 && cmake --install $build_dir)
 
 
