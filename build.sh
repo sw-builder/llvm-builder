@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-self_dir=$PWD
-build_type=Release
+self_path=`realpath ${BASH_SOURCE[0]:-$0}`
+self_dir=`dirname $self_dir`
 
-build_dir=$self_dir/.build/$build_type
-cache_dir=$self_dir/.cache/$build_type
-install_dir=$self_dir/.llvm-root/$build_type
+build_type=${build_type:-Release}
+build_dir=${build_dir:-$self_dir/.build/$build_type}
+cache_dir=${cache_dir:-$self_dir/.cache/$build_type}
+install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
 
 (cd llvm-project \
 && cmake -S llvm -B $build_dir -G Ninja \
@@ -21,6 +22,4 @@ install_dir=$self_dir/.llvm-root/$build_type
 && cmake --build $build_dir -j 12 \
 && cmake --install $build_dir)
 
-rm -rf $self_dir/llvm-root
-ln -sf $install_dir $self_dir/llvm-root
 
