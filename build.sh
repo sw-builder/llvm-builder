@@ -3,9 +3,9 @@
 self_dir=$PWD
 build_type=Release
 
-build_dir=$self_dir/.build-$build_type
+build_dir=$self_dir/.build/$build_type
 cache_dir=$self_dir/.cache/$build_type
-install_dir=$self_dir/llvm-root
+install_dir=$self_dir/.llvm-root/$build_type
 
 (cd llvm-project \
 && cmake -S llvm -B $build_dir -G Ninja \
@@ -15,11 +15,12 @@ install_dir=$self_dir/llvm-root
     -DLLVM_CCACHE_DIR=$cache_dir \
     -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang' \
     -DLLVM_TARGETS_TO_BUILD='all' \
-    -DLLVM_ENABLE_RTTI=ON \
-    -DLLVM_ENABLE_ASSERTIONS=ON \
+    -DLLVM_INSTALL_UTILS=ON \
     -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
     -DPython3_EXECUTABLE="$(which python3)" \
-    -DLLVM_INSTALL_UTILS=ON \
-&& cmake --build $build_dir -j 24 \
+&& cmake --build $build_dir -j 12 \
 && cmake --install $build_dir)
+
+rm -rf $self_dir/llvm-root
+ln -sf $install_dir $self_dir/llvm-root
 

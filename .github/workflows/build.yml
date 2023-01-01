@@ -21,6 +21,7 @@ jobs:
           key: ccache
           path: |
             .cache
+            .build
             llvm-project
       - run: |
           if [ -e llvm-project ]; then (cd llvm-project && git pull --rebase && git checkout ${LLVM_TAG} && git submodule update --init); else git clone -b ${LLVM_TAG} https://github.com/llvm/llvm-project.git; fi
@@ -31,10 +32,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: llvm
-          path: llvm-root
+          path: .llvm-root
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: llvm-root
+          files: .llvm-root
 
