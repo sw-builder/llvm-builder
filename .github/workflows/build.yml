@@ -30,6 +30,9 @@ jobs:
       - name: Build
         run: |
           ./build.sh
+          apt update
+          apt install -y tree
+          tree
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:

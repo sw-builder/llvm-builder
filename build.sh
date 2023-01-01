@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 self_path=`realpath ${BASH_SOURCE[0]:-$0}`
-self_dir=`dirname $self_dir`
+self_dir=`dirname $self_path`
 
 build_type=${build_type:-Release}
 build_dir=${build_dir:-$self_dir/.build/$build_type}
