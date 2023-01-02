@@ -3,6 +3,8 @@ on: [push]
 
 env:
   LLVM_TAG: llvmorg-15.0.6
+  LLVM_DEB: llvm.deb
+  install_dir: llvm-root
 
 jobs:
   build:
@@ -30,17 +32,19 @@ jobs:
       - name: Build
         run: |
           ./build.sh
-          apt update
-          apt install -y tree
-          tree
+          mkdir -p ${install_dir}/DEBIAN
+          cp control ${install_dir}/DEBIAN/
+          dpkg-deb -b ${install_dir} ${LLVM_DEB}
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: llvm
-          path: .llvm-root
+          path: ${{ env.install_dir }}
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: .llvm-root
+          files: |
+            ${{ env.install_dir }}
+            ${{ env.LLVM_DEB }}
 
