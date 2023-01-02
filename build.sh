@@ -11,7 +11,7 @@ install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
 (cd llvm-project \
 && cmake -S llvm -B $build_dir -G Ninja \
     -DCMAKE_BUILD_TYPE=${build_type} \
-    -DCMAKE_INSTALL_PREFIX=$install_dir \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
     -DLLVM_CCACHE_BUILD=ON \
     -DLLVM_CCACHE_DIR=$cache_dir \
     -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang' \
@@ -20,6 +20,5 @@ install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
     -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
     -DPython3_EXECUTABLE="$(which python3)" \
     && cmake --build $build_dir -j $(nproc) \
-&& cmake --install $build_dir)
-
+&& DESTDIR=$install_dir cmake --install $build_dir)
 
