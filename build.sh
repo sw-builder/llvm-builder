@@ -21,4 +21,5 @@ install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
     -DPython3_EXECUTABLE="$(which python3)" \
     && cmake --build $build_dir -j $(nproc) \
 && DESTDIR=$install_dir cmake --install $build_dir)
+rm -rf $build_dir
 
