@@ -4,7 +4,7 @@ on: [push]
 env:
   LLVM_TAG: llvmorg-15.0.6
   LLVM_DEB: llvm.deb
-  install_dir: llvm-root
+  install_dir: ${{ github.path }}/llvm-root
 
 jobs:
   build:
