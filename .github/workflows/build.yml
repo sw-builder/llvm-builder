@@ -1,17 +1,19 @@
 name: llvm-builder
 on: [push]
 
-env:
-  LLVM_TAG: llvmorg-15.0.6
-  LLVM_DEB: llvm.deb
-  install_dir: ${{ github.path }}/llvm-root
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      LLVM_TAG: llvmorg-15.0.6
+      LLVM_DEB: llvm.deb
+      install_dir: /home/runner/work/llvm-builder/llvm-builder/llvm-root
     steps:
       - run: |
           curl -L https://raw.githubusercontent.com/apache/flink/master/tools/azure-pipelines/free_disk_space.sh | bash
+      - run: |
+          sudo apt update
+          sudo apt install -y build-essential ninja-build ccache python3 python3-dev python3-pip python3-numpy python3-pybind11
       - uses: actions/checkout@v3
       - name: Cache
         uses: actions/cache@v3
@@ -27,9 +29,9 @@ jobs:
       - name: Build
         run: |
           ./build.sh
-          mkdir -p ${install_dir}/DEBIAN
-          cp control ${install_dir}/DEBIAN/
-          dpkg-deb -b ${install_dir} ${LLVM_DEB}
+          mkdir -p $install_dir/DEBIAN
+          cp control $install_dir/DEBIAN/
+          dpkg-deb -b $install_dir ${LLVM_DEB}
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
