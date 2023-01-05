@@ -9,10 +9,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: xundaoxd/ml:latest
-      options: -u 0:0
     steps:
+      - run: |
+          curl -L https://raw.githubusercontent.com/apache/flink/master/tools/azure-pipelines/free_disk_space.sh | bash
       - uses: actions/checkout@v3
       - name: Cache
         uses: actions/cache@v3
