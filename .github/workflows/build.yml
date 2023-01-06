@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       LLVM_TAG: llvmorg-15.0.6
       LLVM_DEB: llvm.deb
