@@ -12,8 +12,8 @@ install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
 && cmake -S llvm -B "$build_dir" -G Ninja \
     -DCMAKE_BUILD_TYPE="${build_type}" \
     -DCMAKE_INSTALL_PREFIX=/usr/local \
-    -DCMAKE_C_COMPILER="$(which clang)" \
-    -DCMAKE_CXX_COMPILER="$(which clang++)" \
+    -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++ \
     -DLLVM_CCACHE_BUILD=ON \
     -DLLVM_CCACHE_DIR="$cache_dir" \
     -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang' \
