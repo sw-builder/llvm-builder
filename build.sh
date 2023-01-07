@@ -18,6 +18,7 @@ install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
     -DLLVM_CCACHE_DIR="$cache_dir" \
     -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang' \
     -DLLVM_TARGETS_TO_BUILD='all' \
+    -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_INSTALL_UTILS=ON \
     -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
     -DPython3_EXECUTABLE="$(which python3)" \
