@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     env:
-      LLVM_TAG: llvmorg-15.0.6
+      LLVM_TAG: main
       LLVM_DEB: llvm.deb
       install_dir: /home/runner/work/llvm-builder/llvm-builder/llvm-root
     steps:
