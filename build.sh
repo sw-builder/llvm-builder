@@ -1,28 +1,24 @@
 #!/usr/bin/env bash
 
-self_path=$(realpath "${BASH_SOURCE[0]:-$0}")
-self_dir=$(dirname "$self_path")
+INSTALL_DIR=${INSTALL_DIR:-$PWD/llvm-root}
+CACHE_DIR=${CACHE_DIR:-$PWD/.cache}
 
-build_type=${build_type:-Release}
-build_dir=${build_dir:-$self_dir/.build/$build_type}
-cache_dir=${cache_dir:-$self_dir/.cache/$build_type}
-install_dir=${install_dir:-$self_dir/.llvm-root/$build_type}
+build_type=Release
 
 (cd llvm-project \
-&& cmake -S llvm -B "$build_dir" -G Ninja \
+&& cmake -S llvm -B build -G Ninja \
     -DCMAKE_BUILD_TYPE="${build_type}" \
-    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
     -DCMAKE_C_COMPILER=clang \
     -DCMAKE_CXX_COMPILER=clang++ \
     -DLLVM_CCACHE_BUILD=ON \
-    -DLLVM_CCACHE_DIR="$cache_dir" \
-    -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang' \
+    -DLLVM_CCACHE_DIR="$CACHE_DIR" \
+    -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang;clang-tools-extra' \
     -DLLVM_TARGETS_TO_BUILD='all' \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_INSTALL_UTILS=ON \
     -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
     -DPython3_EXECUTABLE="$(which python3)" \
-    && cmake --build "$build_dir" -j "$(nproc)" \
-&& DESTDIR=$install_dir cmake --install "$build_dir")
-rm -rf "$build_dir"
+    && cmake --build build -j "$(nproc)" \
+&& cmake --install build)
 

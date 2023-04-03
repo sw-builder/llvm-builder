@@ -1,8 +1,0 @@
-Package: llvm
-Version: 1.0.0
-Architecture: amd64
-Maintainer: xundaoxd[xundaoxd@outlook.com]
-Section: default
-Description:
-  llvm
-
