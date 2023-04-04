@@ -35,14 +35,15 @@ jobs:
       - name: Build
         run: |
           INSTALL_DIR=$PWD/$install_dir CACHE_DIR=$PWD/$cache_dir ./build.sh
+          tar -xzf llvm.tar.gz $install_dir
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: llvm
-          path: ${{ env.install_dir }}
+          path: llvm.tar.gz
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/heads/release')
         with:
-          files: ${{ env.install_dir }}/*
+          files: llvm.tar.gz
 
