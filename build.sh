@@ -20,5 +20,5 @@ build_type=Release
     -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
     -DPython3_EXECUTABLE="$(which python3)" \
     && cmake --build build -j "$(nproc)" \
-&& cmake --install build)
+    && cmake --install build)
 
