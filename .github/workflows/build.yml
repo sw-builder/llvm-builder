@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     env:
-      LLVM_TAG: release/15.x
+      llvm_tag: 15.x
       install_dir: llvm-root
       cache_dir: .cache
     steps:
@@ -30,20 +30,20 @@ jobs:
           [[ ! -e llvm-project ]] && git clone https://github.com/llvm/llvm-project.git
           cd llvm-project
           git pull --rebase
-          git checkout ${LLVM_TAG}
+          git checkout release/${llvm_tag}
           git submodule update --init
       - name: Build
         run: |
           INSTALL_DIR=$PWD/$install_dir CACHE_DIR=$PWD/$cache_dir ./build.sh
-          tar -xzf llvm.tar.gz $install_dir
+          tar -czf llvm-${{ env.llvm_tag }}.tar.gz $install_dir
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: llvm
-          path: llvm.tar.gz
+          path: llvm-${{ env.llvm_tag }}.tar.gz
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/heads/release')
         with:
-          files: llvm.tar.gz
+          files: llvm-${{ env.llvm_tag }}.tar.gz
 
