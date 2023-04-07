@@ -17,6 +17,7 @@ build_type=Release
     -DLLVM_TARGETS_TO_BUILD='all' \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_INSTALL_UTILS=ON \
+    -DLLVM_BUILD_EXAMPLES=ON \
     -DMLIR_ENABLE_BINDINGS_PYTHON=ON \
     -DPython3_EXECUTABLE="$(which python3)" \
     && cmake --build build -j "$(nproc)" \
