@@ -29,7 +29,6 @@ jobs:
       - run: |
           [[ ! -e llvm-project ]] && git clone https://github.com/llvm/llvm-project.git
           cd llvm-project
-          git pull --rebase origin main
           git checkout llvmorg-${llvm_tag}
           git submodule update --init
       - name: Build
