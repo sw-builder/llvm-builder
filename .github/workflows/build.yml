@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     env:
-      llvm_tag: 15.0.7
+      llvm_tag: llvmorg-15.0.7
       install_dir: llvm-root
       cache_dir: .cache
     steps:
@@ -29,7 +29,7 @@ jobs:
       - run: |
           [[ ! -e llvm-project ]] && git clone https://github.com/llvm/llvm-project.git
           cd llvm-project
-          git checkout llvmorg-${llvm_tag}
+          git checkout ${llvm_tag}
           git submodule update --init
       - name: Build
         run: |
