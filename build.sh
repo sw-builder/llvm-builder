@@ -18,6 +18,7 @@ build_type=Release
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_BUILD_EXAMPLES=ON \
+    -DCLANG_BUILD_EXAMPLES=ON \
     && cmake --build build -j "$(nproc)" \
     && cmake --install build)
 
