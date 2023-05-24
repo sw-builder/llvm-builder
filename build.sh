@@ -14,6 +14,7 @@ build_type=Release
     -DLLVM_CCACHE_BUILD=ON \
     -DLLVM_CCACHE_DIR="$CACHE_DIR" \
     -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang;clang-tools-extra' \
+    -DLLVM_ENABLE_RUNTIMES='libcxx;libcxxabi' \
     -DLLVM_TARGETS_TO_BUILD='all' \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_INSTALL_UTILS=ON \
