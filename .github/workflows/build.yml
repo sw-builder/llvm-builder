@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     env:
-      llvm_tag: main
+      llvm_tag: release/17.x
       install_dir: llvm-root
       cache_dir: .cache
     steps:
