@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       llvm_tag: release/17.x
+      pkg: llvm-17
       install_dir: llvm-root
       cache_dir: .cache
     steps:
@@ -32,10 +33,10 @@ jobs:
       - name: Build
         run: |
           INSTALL_DIR=$PWD/$install_dir CACHE_DIR=$PWD/$cache_dir ./build.sh
-          tar -czf llvm-${{ env.llvm_tag }}.tar.gz $install_dir
+          tar -czf ${{ env.pkg}}.tar.gz $install_dir
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: llvm-${{ env.llvm_tag }}
-          path: llvm-${{ env.llvm_tag }}.tar.gz
+          name: ${{ env.pkg }}
+          path: ${{ env.pkg }}.tar.gz
 
