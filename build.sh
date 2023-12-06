@@ -9,8 +9,6 @@ build_type=Release
 && cmake -S llvm -B build -G Ninja \
     -DCMAKE_BUILD_TYPE="${build_type}" \
     -DCMAKE_INSTALL_PREFIX="$INSTALL_DIR" \
-    -DCMAKE_C_COMPILER=clang \
-    -DCMAKE_CXX_COMPILER=clang++ \
     -DLLVM_CCACHE_BUILD=ON \
     -DLLVM_CCACHE_DIR="$CACHE_DIR" \
     -DLLVM_ENABLE_PROJECTS='llvm;mlir;clang;clang-tools-extra' \
