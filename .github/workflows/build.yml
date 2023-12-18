@@ -34,9 +34,7 @@ jobs:
         run: |
           INSTALL_DIR=$PWD/$install_dir CACHE_DIR=$PWD/$cache_dir ./build.sh
           tar -czf ${{ env.pkg}}.tar.gz $install_dir
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+      - uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.pkg }}
-          path: ${{ env.pkg }}.tar.gz
+          files: ${{ env.pkg }}.tar.gz
 
