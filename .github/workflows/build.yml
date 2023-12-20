@@ -34,7 +34,12 @@ jobs:
         run: |
           INSTALL_DIR=$PWD/$install_dir CACHE_DIR=$PWD/$cache_dir ./build.sh
           tar -czf ${{ env.pkg}}.tar.gz $install_dir
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.pkg }}
+          path: ${{ env.pkg }}.tar.gz
       - uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: ${{ env.pkg }}.tar.gz
 
